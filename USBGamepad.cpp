@@ -3,6 +3,27 @@
 #include "USBGamepad.h"
 
 
+USBGamepad::USBGamepad(bool connect_blocking, unint16_t vendor_id, unint16_t product_id, unint16_t product_release) : 
+    USBHID(get_usb_phy(), 0, 0, vendor_id, product_id, product_release)
+{   
+    if (connect_blocking) {
+        USBDevice::connect();
+        wait_ready();
+    } else {
+        init();
+    }
+}
+
+USBMouse::USBGamepad(USBPhy *phy, uint16_t vendor_id, uint16_t product_id, uint16_t product_release):
+    USBHID(get_usb_phy(), 0, 0, vendor_id, product_id, product_release)
+{
+}
+
+USBGamepad::~USBGamepad()
+{
+    deinit();
+}
+
 const unint8_t *USBGamepad::report_desc() 
 {
     static const uint8_t report_descriptor[] = {
