@@ -2,19 +2,41 @@
 #include "USBGamepad.h"
  
 USBGamepad gamepad;
+
+DigitalIn pb1(p5);
+DigitalIn pb2(p6);
+DigitalIn pb3(p7);
+DigitalIn pb4(p8); 
+AnalogIn AnalogXl(p15);
+AnalogIn AnalogYl(p16);
+AnalogIn AnalogXr(P17);
+AnalogIn AnalogYr(p18); 
+
  
 int main() {
-//     int16_t x = 0;
-//     int16_t y = 0;
-//     int32_t radius = 10;
-//     int32_t angle = 0;
-//  
-//     while (1) {
-//         x = cos((double)angle*3.14/180.0)*radius;
-//         y = sin((double)angle*3.14/180.0)*radius;
-//         
-//         mouse.move(x, y);
-//         angle += 3;
-//         wait(0.001);
-//     }
+	pb1.mode(PullUp);
+    pb2.mode(PullUp);
+    pb3.mode(PullUp);
+    pb4.mode(PullUp); 
+
+    while (1) {
+        if (!pb1) {
+            //gamepad actions upon press of pb1
+        } 
+
+         if (!pb2) {
+            //gamepad actions upon press of pb2
+        } 
+
+         if (!pb3) {
+            //gamepad actions upon press of pb3
+
+        }
+        
+         if (!pb4) {
+            //gamepad actions upon press of pb4
+        }  
+    }
+
+    
 }
