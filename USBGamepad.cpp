@@ -53,34 +53,35 @@ bool USBGamepad::click(unint8_t button)
 
 const unint8_t *USBGamepad::report_desc() 
 {
+    // TODO check if need a report_id
     static const uint8_t report_descriptor[] = {
         USAGE_PAGE(1),      0x01,       // Generic Desktop
         USAGE(1),           0x05,       // Gamepad
         COLLECTION(1),      0x01,       // Application
-        USAGE(1),           0x01,       // Pointer
         COLLECTION(1),      0x00,       // Physical
 
-        REPORT_COUNT(1),    0x03,
-        REPORT_SIZE(1),     0x01,
+        REPORT_COUNT(1),    0x06,       // 6 Buttons
+        REPORT_SIZE(1),     0x01,       // 1 bit each
         USAGE_PAGE(1),      0x09,       // Buttons
-        USAGE_MINIMUM(1),       0x1,
-        USAGE_MAXIMUM(1),       0x3,
-        LOGICAL_MINIMUM(1),     0x00,
-        LOGICAL_MAXIMUM(1),     0x01,
-        INPUT(1),           0x02,
-        REPORT_COUNT(1),    0x01,
-        REPORT_SIZE(1),     0x05,
-        INPUT(1),           0x01,
+        USAGE_MINIMUM(1),       0x01,   // Button #1 
+        USAGE_MAXIMUM(1),       0x10,   // Button #16
+        LOGICAL_MINIMUM(1),     0x00,   // Minimum = 0 
+        LOGICAL_MAXIMUM(1),     0x01,   // Maximum = 1
+        INPUT(1),           0x02,       // INPUT type TODO check this INPUT(data,var,abs)
+        REPORT_COUNT(1),    0x01,       // Unused Bits for buttons
+        REPORT_SIZE(1),     0x02,
+        INPUT(1),           0x03,       // INPUT(Cnst,var,abs)
 
-        REPORT_COUNT(1),    0x03,
-        REPORT_SIZE(1),     0x08,
-        USAGE_PAGE(1),      0x01,
+        REPORT_COUNT(1),    0x04,       // 4 Axies
+        REPORT_SIZE(1),     0x08,       // 1 Byte Each 
+        USAGE_PAGE(1),      0x01,       // Generic Desktop
         USAGE(1),           0x30,       // X
         USAGE(1),           0x31,       // Y
-        USAGE(1),           0x38,       // scroll
-        LOGICAL_MINIMUM(1),     0x81,
-        LOGICAL_MAXIMUM(1),     0x7f,
-        INPUT(1),           0x06,       // Relative data
+        USAGE(1),           0x32,       // Z
+        USAGE(1),           0x32,       // Rx
+        LOGICAL_MINIMUM(1),     0x81,   // Logical Minimum (-127)
+        LOGICAL_MAXIMUM(1),     0x7f,   // Logical Maximum (127)
+        INPUT(1),           0x06,       // Relative data INPUT(data,var,rel)
 
         END_COLLECTION(0),
         END_COLLECTION(0),
