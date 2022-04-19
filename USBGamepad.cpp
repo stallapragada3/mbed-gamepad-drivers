@@ -6,6 +6,7 @@
 USBGamepad::USBGamepad(bool connect_blocking, unint16_t vendor_id, unint16_t product_id, unint16_t product_release) : 
     USBHID(get_usb_phy(), 0, 0, vendor_id, product_id, product_release)
 {   
+    _button = 0;
     if (connect_blocking) {
         USBDevice::connect();
         wait_ready();
@@ -24,11 +25,37 @@ USBGamepad::~USBGamepad()
     deinit();
 }
 
+bool USBGamepad::update()
+{
+}
+
+bool press(unint8_t button);
+
+bool release(unint8_t button);
+
+bool click(unint8_t button);
+
+bool joystick(uint8_t joy, uint8_x x, uint8_t y);
+
+
+bool USBGamepad::gamepad_send();
+
+bool USBGamepad::click(unint8_t button)
+{
+    _mutex.lock();
+
+    if(!update()) {
+        bool ret = update(0,0,0,0)
+    }
+
+    return ret;
+}
+
 const unint8_t *USBGamepad::report_desc() 
 {
     static const uint8_t report_descriptor[] = {
-        USAGE_PAGE(1),      0x01,       // Genric Desktop
-        USAGE(1),           0x02,       // Mouse
+        USAGE_PAGE(1),      0x01,       // Generic Desktop
+        USAGE(1),           0x05,       // Gamepad
         COLLECTION(1),      0x01,       // Application
         USAGE(1),           0x01,       // Pointer
         COLLECTION(1),      0x00,       // Physical
